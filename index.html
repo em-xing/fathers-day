@@ -77,6 +77,13 @@
             font-weight: 400;
         }
 
+        .flipbook-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
         .mini-flipbook {
             width: 260px;
             height: 320px;
@@ -172,29 +179,60 @@
             font-weight: 500;
         }
 
-        .mini-navigation {
+        .navigation-container {
             margin-top: 30px;
             display: flex;
-            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 300px;
         }
 
-        .mini-nav-dot {
-            width: 8px;
-            height: 8px;
+        .nav-arrow {
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            background: #bdc3c7;
+            background: #3498db;
+            color: white;
+            border: none;
+            font-size: 1.3em;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+            flex-shrink: 0;
         }
 
-        .mini-nav-dot:hover {
-            background: #95a5a6;
-            transform: scale(1.2);
+        .nav-arrow:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(52, 152, 219, 0.4);
         }
 
-        .mini-nav-dot.active {
-            background: #3498db;
-            transform: scale(1.4);
+        .nav-arrow:active {
+            transform: translateY(0);
+        }
+
+        .nav-arrow:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            box-shadow: 0 2px 6px rgba(189, 195, 199, 0.3);
+        }
+
+        .nav-arrow:disabled:hover {
+            transform: none;
+            background: #bdc3c7;
+            box-shadow: 0 2px 6px rgba(189, 195, 199, 0.3);
+        }
+
+        .page-counter {
+            font-size: 1em;
+            color: #2c3e50;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 20px;
         }
 
         .mini-page-number {
@@ -301,114 +339,115 @@
                 <p>Some coupons for your use</p>
             </div>
 
-            <div class="mini-flipbook" id="miniFlipbook">
-                <!-- Cover -->
-                <div class="mini-page mini-cover" data-page="0">
-                    <div class="mini-page-content">
-                        <h3>For Dad</h3>
-                        <p>当你不想做家务时使用这些优惠券</p>
-                        <div class="mini-click-hint">Click to browse</div>
+            <div class="flipbook-container">
+                <button class="nav-arrow" id="prevBtn">‹</button>
+                
+                <div class="mini-flipbook" id="miniFlipbook">
+                    <!-- Cover -->
+                    <div class="mini-page mini-cover" data-page="0">
+                        <div class="mini-page-content">
+                            <h3>For Dad</h3>
+                            <p>当你不想做家务时使用这些优惠券</p>
+                            <div class="mini-click-hint">Click to browse</div>
+                        </div>
+                    </div>
+
+                    <!-- Coupon 1 -->
+                    <div class="mini-page mini-coupon" data-page="1">
+                        <div class="mini-page-content">
+                            <div class="coupon-decoration">
+                                <div class="coupon-hole top"></div>
+                                <div class="coupon-hole bottom"></div>
+                            </div>
+                            <h4>Paper editing</h4>
+                            <div class="mini-coupon-text">
+                                I'll edit one of your research papers for grammar
+                            </div>
+                            <div class="mini-valid">No need for acknowledgement</div>
+                            <div class="mini-page-number">01</div>
+                        </div>
+                    </div>
+
+                    <!-- Coupon 2 -->
+                    <div class="mini-page mini-coupon" data-page="2">
+                        <div class="mini-page-content">
+                            <div class="coupon-decoration">
+                                <div class="coupon-hole top"></div>
+                                <div class="coupon-hole bottom"></div>
+                            </div>
+                            <h4>40分伙伴</h4>
+                            <div class="mini-coupon-text">
+                                Won't be with 阿婆
+                            </div>
+                            <div class="mini-valid">Any evening</div>
+                            <div class="mini-page-number">02</div>
+                        </div>
+                    </div>
+
+                    <!-- Coupon 3 -->
+                    <div class="mini-page mini-coupon" data-page="3">
+                        <div class="mini-page-content">
+                            <div class="coupon-decoration">
+                                <div class="coupon-hole top"></div>
+                                <div class="coupon-hole bottom"></div>
+                            </div>
+                            <h4>Going on a run</h4>
+                            <div class="mini-coupon-text">
+                                Centennial Park run together!
+                            </div>
+                            <div class="mini-valid">Just ask</div>
+                            <div class="mini-page-number">03</div>
+                        </div>
+                    </div>
+
+                    <!-- Coupon 4 -->
+                    <div class="mini-page mini-coupon" data-page="4">
+                        <div class="mini-page-content">
+                            <div class="coupon-decoration">
+                                <div class="coupon-hole top"></div>
+                                <div class="coupon-hole bottom"></div>
+                            </div>
+                            <h4>擦地板擦桌子</h4>
+                            <div class="mini-coupon-text">
+                                Clean floors and tables thoroughly
+                            </div>
+                            <div class="mini-valid">When it's dirty</div>
+                            <div class="mini-page-number">04</div>
+                        </div>
+                    </div>
+
+                    <!-- Coupon 5 -->
+                    <div class="mini-page mini-coupon" data-page="5">
+                        <div class="mini-page-content">
+                            <div class="coupon-decoration">
+                                <div class="coupon-hole top"></div>
+                                <div class="coupon-hole bottom"></div>
+                            </div>
+                            <h4>Calling relatives</h4>
+                            <div class="mini-coupon-text"> 
+                                我想念爷爷奶奶姑姑，不确定设哪个qian
+                            </div>
+                            <div class="mini-valid">China time</div>
+                            <div class="mini-page-number">05</div>
+                        </div>
+                    </div>
+
+                    <!-- Back Cover -->
+                    <div class="mini-page mini-back" data-page="6">
+                        <div class="mini-page-content">
+                            <h4>Thanks Dad</h4>
+                            <p>
+                                You're cool sometimes. Hope you like these!
+                            </p>
+                            <div class="mini-page-number">♦</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Coupon 1 -->
-                <div class="mini-page mini-coupon" data-page="1">
-                    <div class="mini-page-content">
-                        <div class="coupon-decoration">
-                            <div class="coupon-hole top"></div>
-                            <div class="coupon-hole bottom"></div>
-                        </div>
-                        <h4>Paper editing</h4>
-                        <div class="mini-coupon-text">
-                            I'll edit one of your research papers for grammar
-                        </div>
-                        <div class="mini-valid">No need for acknowledgement</div>
-                        <div class="mini-page-number">01</div>
-                    </div>
-                </div>
-
-                <!-- Coupon 2 -->
-                <div class="mini-page mini-coupon" data-page="2">
-                    <div class="mini-page-content">
-                        <div class="coupon-decoration">
-                            <div class="coupon-hole top"></div>
-                            <div class="coupon-hole bottom"></div>
-                        </div>
-                        <h4>
-40分伙伴</h4>
-                        <div class="mini-coupon-text">
-                            Won't be with 阿婆
-                        </div>
-                        <div class="mini-valid">Any evening</div>
-                        <div class="mini-page-number">02</div>
-                    </div>
-                </div>
-
-                <!-- Coupon 3 -->
-                <div class="mini-page mini-coupon" data-page="3">
-                    <div class="mini-page-content">
-                        <div class="coupon-decoration">
-                            <div class="coupon-hole top"></div>
-                            <div class="coupon-hole bottom"></div>
-                        </div>
-                        <h4>Going on a run</h4>
-                        <div class="mini-coupon-text">
-                            Centennial Park run together!
-                        </div>
-                        <div class="mini-valid">Just ask</div>
-                        <div class="mini-page-number">03</div>
-                    </div>
-                </div>
-
-                <!-- Coupon 4 -->
-                <div class="mini-page mini-coupon" data-page="4">
-                    <div class="mini-page-content">
-                        <div class="coupon-decoration">
-                            <div class="coupon-hole top"></div>
-                            <div class="coupon-hole bottom"></div>
-                        </div>
-                        <h4>擦地板擦桌子</h4>
-                        <div class="mini-coupon-text">
-                            Inside, outside, and detailed
-                        </div>
-                        <div class="mini-valid">When it's dirty</div>
-                        <div class="mini-page-number">04</div>
-                    </div>
-                </div>
-
-                <!-- Coupon 5 -->
-                <div class="mini-page mini-coupon" data-page="5">
-                    <div class="mini-page-content">
-                        <div class="coupon-decoration">
-                            <div class="coupon-hole top"></div>
-                            <div class="coupon-hole bottom"></div>
-                        </div>
-                        <h4>Calling relatives</h4>
-                        <div class="mini-coupon-text"> 
-我想念爷爷奶奶姑姑，不确定设哪个qian
-                        </div>
-                        <div class="mini-valid">China time</div>
-                        <div class="mini-page-number">05</div>
-                    </div>
-                </div>
-
-    
-
-                <!-- Back Cover -->
-                <div class="mini-page mini-back" data-page="8">
-                    <div class="mini-page-content">
-                        <h4>Thanks Dad</h4>
-                        <p>
-                            You're cool sometimes. Hope you like these!
-                        </p>
-                        <div class="mini-page-number">♦</div>
-                    </div>
-                </div>
+                <button class="nav-arrow" id="nextBtn">›</button>
             </div>
 
-            <div class="mini-navigation" id="miniNavigation">
-                <!-- Navigation dots will be generated by JavaScript -->
-            </div>
+            <div class="page-counter" id="pageCounter">1 / 6</div>
         </div>
     </div>
 
@@ -416,22 +455,14 @@
         class MiniFlipBook {
             constructor() {
                 this.currentPage = 0;
-                this.totalPages = 7;
+                this.totalPages = 6;
                 this.pages = document.querySelectorAll('.mini-page');
-                this.navigation = document.getElementById('miniNavigation');
+                this.prevBtn = document.getElementById('prevBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.pageCounter = document.getElementById('pageCounter');
                 
-                this.createNavigation();
                 this.bindEvents();
                 this.showPage(0);
-            }
-
-            createNavigation() {
-                for (let i = 0; i < this.totalPages; i++) {
-                    const dot = document.createElement('div');
-                    dot.className = 'mini-nav-dot';
-                    dot.addEventListener('click', () => this.goToPage(i));
-                    this.navigation.appendChild(dot);
-                }
             }
 
             bindEvents() {
@@ -442,6 +473,9 @@
                         }
                     });
                 });
+
+                this.prevBtn.addEventListener('click', () => this.prevPage());
+                this.nextBtn.addEventListener('click', () => this.nextPage());
 
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'ArrowRight') this.nextPage();
@@ -454,7 +488,17 @@
                     page.classList.toggle('active', index === pageNumber);
                 });
                 this.currentPage = pageNumber;
-                this.updateNavigation();
+                this.updateButtons();
+                this.updateCounter();
+            }
+
+            updateButtons() {
+                this.prevBtn.disabled = this.currentPage === 0;
+                this.nextBtn.disabled = this.currentPage === this.totalPages - 1;
+            }
+
+            updateCounter() {
+                this.pageCounter.textContent = `${this.currentPage + 1} / ${this.totalPages}`;
             }
 
             goToPage(pageNumber) {
@@ -472,13 +516,6 @@
                 if (this.currentPage > 0) {
                     this.goToPage(this.currentPage - 1);
                 }
-            }
-
-            updateNavigation() {
-                const dots = this.navigation.querySelectorAll('.mini-nav-dot');
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === this.currentPage);
-                });
             }
         }
 
