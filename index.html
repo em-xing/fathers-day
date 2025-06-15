@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Father's Day</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: #f0f4f8;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100vh;
+            gap: 0;
+        }
+
+        .hero-side {
+            background: linear-gradient(rgba(52, 152, 219, 0.15), rgba(52, 152, 219, 0.15)), 
+                        url('https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 40px;
+            background-color: #3498db;
+        }
+
+        .hero-content h1 {
+            font-size: 2.8em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.3em;
+            font-weight: 400;
+            opacity: 0.95;
+        }
+
+        .coupon-side {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 40px;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-header h2 {
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .section-header p {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            font-weight: 400;
+        }
+
+        .mini-flipbook {
+            width: 260px;
+            height: 320px;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .mini-page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform-origin: left center;
+        }
+
+        .mini-page:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.18);
+        }
+
+        .mini-page.flipped {
+            transform: rotateY(-180deg);
+        }
+
+        .mini-page.flipped:hover {
+            transform: rotateY(-180deg) translateY(-3px);
+        }
+
+        .mini-page-content {
+            width: 100%;
+            height: 100%;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 12px;
+            background: white;
+            border: 2px solid #ecf0f1;
+        }
+
+        .mini-cover .mini-page-content {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+        }
+
+        .mini-cover h3 {
+            font-size: 1.6em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .mini-cover p {
+            font-size: 1em;
+            opacity: 0.9;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .mini-click-hint {
+            font-size: 0.85em;
+            opacity: 0.85;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .mini-coupon h4 {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .mini-coupon-text {
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin-bottom: 18px;
+            color: #34495e;
+            font-weight: 400;
+        }
+
+        .mini-valid {
+            font-size: 0.75em;
+            color: #3498db;
+            padding: 6px 12px;
+            background: #ebf3fd;
+            border-radius: 15px;
+            font-weight: 500;
+        }
+
+        .mini-navigation {
+            margin-top: 30px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .mini-nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #bdc3c7;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mini-nav-dot:hover {
+            background: #95a5a6;
+            transform: scale(1.2);
+        }
+
+        .mini-nav-dot.active {
+            background: #3498db;
+            transform: scale(1.4);
+        }
+
+        .mini-page-number {
+            position: absolute;
+            bottom: 12px;
+            right: 16px;
+            font-size: 0.7em;
+            color: #95a5a6;
+            font-weight: 500;
+        }
+
+        .mini-back .mini-page-content {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            border: none;
+        }
+
+        .mini-back h4 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 18px;
+            font-size: 1.3em;
+        }
+
+        .mini-back p {
+            font-size: 0.9em;
+            line-height: 1.6;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .coupon-decoration {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 2px dashed #3498db;
+            border-radius: 8px;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .coupon-hole {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+
+        .coupon-hole.top { top: -6px; left: 50%; transform: translateX(-50%); }
+        .coupon-hole.bottom { bottom: -6px; left: 50%; transform: translateX(-50%); }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2em;
+            }
+            
+            .hero-content p {
+                font-size: 1.1em;
+            }
+            
+            .coupon-side {
+                padding: 30px 20px;
+            }
+            
+            .mini-flipbook {
+                width: 220px;
+                height: 280px;
+            }
+            
+            .section-header {
+                margin-bottom: 25px;
+            }
+            
+            .section-header h2 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Side -->
+        <div class="hero-side">
+            <div class="hero-content">
+                <h1>Hey Dad!</h1>
+                <p>We made you something</p>
+            </div>
+        </div>
+
+        <!-- Coupon Side -->
+        <div class="coupon-side">
+            <div class="section-header">
+                <h2>Your Coupons</h2>
+                <p>Some things we'd love to do for you</p>
+            </div>
+
+            <div class="mini-flipbook" id="miniFlipbook">
+                <!-- Cover -->
+                <div class="mini-page mini-cover" data-page="0">
+                    <div class="mini-page-content">
+                        <h3>For Dad</h3>
+                        <p>7 ways to help out</p>
+                        <div class="mini-click-hint">Click to browse</div>
+                    </div>
+                </div>
+
+                <!-- Coupon 1 -->
+                <div class="mini-page mini-coupon" data-page="1">
+                    <div class="mini-page-content">
+                        <div class="coupon-decoration">
+                            <div class="coupon-hole top"></div>
+                            <div class="coupon-hole bottom"></div>
+                        </div>
+                        <h4>Coffee & Paper</h4>
+                        <div class="mini-coupon-text">
+                            Brought to you in bed on weekend mornings
+                        </div>
+                        <div class="mini-valid">Saturday or Sunday</div>
+                        <div class="mini-page-number">01</div>
+                    </div>
+                </div>
+
+                <!-- Coupon 2 -->
+                <div class="mini-page mini-coupon" data-page="2">
+                    <div class="mini-page-content">
+                        <div class="coupon-decoration">
+                            <div class="coupon-hole top"></div>
+                            <div class="coupon-hole bottom"></div>
+                        </div>
+                        <h4>Movie Pick</h4>
+                        <div class="mini-coupon-text">
+                            You choose, we'll get the snacks ready
+                        </div>
+                        <div class="mini-valid">Any evening</div>
+                        <div class="mini-page-number">02</div>
+                    </div>
+                </div>
+
+                <!-- Coupon 3 -->
+                <div class="mini-page mini-coupon" data-page="3">
+                    <div class="mini-page-content">
+                        <div class="coupon-decoration">
+                            <div class="coupon-hole top"></div>
+                            <div class="coupon-hole bottom"></div>
+                        </div>
+                        <h4>Your Dinner</h4>
+                        <div class="mini-coupon-text">
+                            Whatever you want, made how you like it
+                        </div>
+                        <div class="mini-valid">Just ask</div>
+                        <div class="mini-page-number">03</div>
+                    </div>
+                </div>
+
+                <!-- Coupon 4 -->
+                <div class="mini-page mini-coupon" data-page="4">
+                    <div class="mini-page-content">
+                        <div class="coupon-decoration">
+                            <div class="coupon-hole top"></div>
+                            <div class="coupon-hole bottom"></div>
+                        </div>
+                        <h4>Car Wash</h4>
+                        <div class="mini-coupon-text">
+                            Inside, outside, and detailed
+                        </div>
+                        <div class="mini-valid">When it's dirty</div>
+                        <div class="mini-page-number">04</div>
+                    </div>
+                </div>
+
+                <!-- Coupon 5 -->
+                <div class="mini-page mini-coupon" data-page="5">
+                    <div class="mini-page-content">
+                        <div class="coupon-decoration">
+                            <div class="coupon-hole top"></div>
+                            <div class="coupon-hole bottom"></div>
+                        </div>
+                        <h4>Helper</h4>
+                        <div class="mini-coupon-text">
+                            Two hours helping with any project
+                        </div>
+                        <div class="mini-valid">Your choice</div>
+                        <div class="mini-page-number">05</div>
+                    </div>
+                </div>
+
+                <!-- Coupon 6 -->
+                <div class="mini-page mini-coupon" data-page="6">
+                    <div class="mini-page-content">
+                        <div class="coupon-decoration">
+                            <div class="coupon-hole top"></div>
+                            <div class="coupon-hole bottom"></div>
+                        </div>
+                        <h4>Quiet Time</h4>
+                        <div class="mini-coupon-text">
+                            An hour to read without interruptions
+                        </div>
+                        <div class="mini-valid">When you need it</div>
+                        <div class="mini-page-number">06</div>
+                    </div>
+                </div>
+
+                <!-- Coupon 7 -->
+                <div class="mini-page mini-coupon" data-page="7">
+                    <div class="mini-page-content">
+                        <div class="coupon-decoration">
+                            <div class="coupon-hole top"></div>
+                            <div class="coupon-hole bottom"></div>
+                        </div>
+                        <h4>Sleep In</h4>
+                        <div class="mini-coupon-text">
+                            No alarms, breakfast ready when you are
+                        </div>
+                        <div class="mini-valid">Sundays</div>
+                        <div class="mini-page-number">07</div>
+                    </div>
+                </div>
+
+                <!-- Back Cover -->
+                <div class="mini-page mini-back" data-page="8">
+                    <div class="mini-page-content">
+                        <h4>Thanks Dad</h4>
+                        <p>
+                            For always being there and teaching us what matters. Hope you like these!
+                        </p>
+                        <div class="mini-page-number">♦</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mini-navigation" id="miniNavigation">
+                <!-- Navigation dots will be generated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class MiniFlipBook {
+            constructor() {
+                this.currentPage = 0;
+                this.totalPages = 9;
+                this.pages = document.querySelectorAll('.mini-page');
+                this.navigation = document.getElementById('miniNavigation');
+                
+                this.createNavigation();
+                this.bindEvents();
+                this.updateNavigation();
+            }
+
+            createNavigation() {
+                for (let i = 0; i < this.totalPages; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'mini-nav-dot';
+                    dot.addEventListener('click', () => this.goToPage(i));
+                    this.navigation.appendChild(dot);
+                }
+            }
+
+            bindEvents() {
+                this.pages.forEach((page, index) => {
+                    page.addEventListener('click', () => {
+                        if (index === this.currentPage) {
+                            this.nextPage();
+                        }
+                    });
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowRight') this.nextPage();
+                    if (e.key === 'ArrowLeft') this.prevPage();
+                });
+            }
+
+            goToPage(pageNumber) {
+                if (pageNumber < 0 || pageNumber >= this.totalPages) return;
+                
+                this.pages.forEach((page, index) => {
+                    if (index < pageNumber) {
+                        page.classList.add('flipped');
+                    } else {
+                        page.classList.remove('flipped');
+                    }
+                });
+
+                this.currentPage = pageNumber;
+                this.updateNavigation();
+            }
+
+            nextPage() {
+                if (this.currentPage < this.totalPages - 1) {
+                    this.goToPage(this.currentPage + 1);
+                }
+            }
+
+            prevPage() {
+                if (this.currentPage > 0) {
+                    this.goToPage(this.currentPage - 1);
+                }
+            }
+
+            updateNavigation() {
+                const dots = this.navigation.querySelectorAll('.mini-nav-dot');
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === this.currentPage);
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new MiniFlipBook();
+        });
+    </script>
+</body>
+</html>
