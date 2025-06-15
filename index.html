@@ -81,32 +81,29 @@
             width: 260px;
             height: 320px;
             position: relative;
-            perspective: 1000px;
+            overflow: hidden;
         }
 
         .mini-page {
             width: 100%;
             height: 100%;
             position: absolute;
-            backface-visibility: hidden;
             border-radius: 12px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.12);
             cursor: pointer;
-            transition: all 0.3s ease;
-            transform-origin: left center;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateX(30px);
+        }
+
+        .mini-page.active {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .mini-page:hover {
-            transform: translateY(-3px);
+            transform: translateX(0) translateY(-3px) scale(1.02);
             box-shadow: 0 12px 35px rgba(0,0,0,0.18);
-        }
-
-        .mini-page.flipped {
-            transform: rotateY(-180deg);
-        }
-
-        .mini-page.flipped:hover {
-            transform: rotateY(-180deg) translateY(-3px);
         }
 
         .mini-page-content {
@@ -454,7 +451,7 @@
                 
                 this.createNavigation();
                 this.bindEvents();
-                this.updateNavigation();
+                this.showPage(0);
             }
 
             createNavigation() {
@@ -481,19 +478,17 @@
                 });
             }
 
-            goToPage(pageNumber) {
-                if (pageNumber < 0 || pageNumber >= this.totalPages) return;
-                
+            showPage(pageNumber) {
                 this.pages.forEach((page, index) => {
-                    if (index < pageNumber) {
-                        page.classList.add('flipped');
-                    } else {
-                        page.classList.remove('flipped');
-                    }
+                    page.classList.toggle('active', index === pageNumber);
                 });
-
                 this.currentPage = pageNumber;
                 this.updateNavigation();
+            }
+
+            goToPage(pageNumber) {
+                if (pageNumber < 0 || pageNumber >= this.totalPages) return;
+                this.showPage(pageNumber);
             }
 
             nextPage() {
